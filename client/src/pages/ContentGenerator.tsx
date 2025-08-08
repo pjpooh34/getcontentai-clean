@@ -101,7 +101,11 @@ const ContentGenerator: React.FC = () => {
   };
 
   const saveContent = () => {
-    // TODO: Implement save functionality
+    if (!user) {
+      toast("Create a free account to save content.");
+      window.location.href = '/signup';
+      return;
+    }
     toast.success('Content saved!');
   };
 

@@ -184,6 +184,17 @@ app.get('/api/trends', (_req, res) => {
   res.json({ trends });
 });
 
+// Public marketing metadata
+app.get('/api/marketing', (_req, res) => {
+  res.json({
+    hero: {
+      title: 'AI Content that Grows Your Small Business',
+      subtitle: 'Create platform-ready posts, emails, and blogs in minutes.'
+    },
+    cta: { primary: 'Try Free Demo', secondary: 'See Pricing' },
+  });
+});
+
 app.get('/api/marketing', (_req, res) => {
   const payload = {
     heroTitle: 'AI Content that Grows Your Small Business',

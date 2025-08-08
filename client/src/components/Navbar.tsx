@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Bell, User, Settings, LogOut, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -39,60 +40,54 @@ const Navbar: React.FC = () => {
             </span>
           </button>
 
-          {/* User Menu */}
-          <div className="relative">
-            <button
-              onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center space-x-2 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-medium">
-                  {user?.firstName?.charAt(0) || 'U'}
+          {/* Auth / User */}
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="flex items-center space-x-2 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-medium">
+                    {user?.firstName?.charAt(0) || 'U'}
+                  </span>
+                </div>
+                <span className="hidden md:block text-sm font-medium">
+                  {user?.firstName} {user?.lastName}
                 </span>
-              </div>
-              <span className="hidden md:block text-sm font-medium">
-                {user?.firstName} {user?.lastName}
-              </span>
-            </button>
-
-            {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                <div className="px-4 py-2 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-900">
-                    {user?.firstName} {user?.lastName}
-                  </p>
-                  <p className="text-sm text-gray-500">{user?.email}</p>
-                  <p className="text-xs text-blue-600 font-medium mt-1">
-                    {user?.plan} Plan
-                  </p>
+              </button>
+              {showUserMenu && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-sm font-medium text-gray-900">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-sm text-gray-500">{user?.email}</p>
+                    <p className="text-xs text-blue-600 font-medium mt-1">
+                      {user?.plan} Plan
+                    </p>
+                  </div>
+                  <div className="py-1">
+                    <a href="/settings" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <User className="h-4 w-4 mr-2" /> Profile
+                    </a>
+                    <a href="/settings" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <Settings className="h-4 w-4 mr-2" /> Settings
+                    </a>
+                    <button onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <LogOut className="h-4 w-4 mr-2" /> Sign Out
+                    </button>
+                  </div>
                 </div>
-                
-                <div className="py-1">
-                  <a
-                    href="/settings"
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <User className="h-4 w-4 mr-2" />
-                    Profile
-                  </a>
-                  <a
-                    href="/settings"
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <Settings className="h-4 w-4 mr-2" />
-                    Settings
-                  </a>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sign Out
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link to="/demo" className="px-3 py-2 text-sm rounded border">Free Demo</Link>
+              <Link to="/login" className="px-3 py-2 text-sm rounded border">Sign In</Link>
+              <Link to="/signup" className="px-3 py-2 text-sm rounded bg-blue-600 text-white">Create Account</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
