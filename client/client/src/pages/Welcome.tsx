@@ -15,22 +15,22 @@ const Welcome: React.FC = () => {
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-200 text-blue-700 bg-blue-50">
             <span className="h-2 w-2 rounded-full bg-blue-500" />
-            Built for small businesses and entrepreneurs
+            AI-powered for modern brands
           </div>
           <h1 className="mt-6 text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
-            AI content that grows your small business
+            Accelerate your content with effortless automation
           </h1>
           <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Create platform-ready posts, emails, and blogs in minutes. Save time, look professional, and focus on customers.
+            Plan, generate, and schedule high-performing content across platforms. Stripe and Twilio ready.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/demo" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 py-3 text-white font-medium shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-colors">
-              Try Free Demo
+            <Link to="/pricing" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 py-3 text-white font-medium shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-colors">
+              Get started
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M17.25 8.25h-8.5v-1.5h10v10h-1.5v-8.5ZM6 18h8v1.5H4.5V9H6v9Z"/></svg>
             </Link>
-            <Link to="/pricing" className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-8 py-3 text-gray-800 font-medium hover:bg-gray-50 transition-colors">
-              See Pricing
+            <Link to="/login" className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-8 py-3 text-gray-800 font-medium hover:bg-gray-50 transition-colors">
+              Sign in
             </Link>
           </div>
 

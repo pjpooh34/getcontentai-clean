@@ -14,8 +14,6 @@ import Pricing from './pages/Pricing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Welcome from './pages/Welcome';
-import Demo from './pages/demo/Demo';
-import Welcome from './pages/Welcome';
 
 // Components
 import Navbar from './components/Navbar';
@@ -44,8 +42,7 @@ function App() {
               <Navbar />
               <div className="page-content">
                 <Routes>
-                  <Route path="/" element={<Welcome />} />
-                  <Route path="/demo" element={<Demo />} />
+                  <Route path="/" element={<Dashboard />} />
                   <Route path="/welcome" element={<Welcome />} />
                   <Route path="/generator" element={<ContentGenerator />} />
                   <Route path="/analytics" element={<Analytics />} />

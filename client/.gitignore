@@ -1,1 +1,21 @@
-.vercel
+# Node
+node_modules/
+**/node_modules/
+*.log
+
+# Build
+**/dist/
+**/.vercel/
+**/.railway/
+logs/
+
+# Env
+.env
+.env.*
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
