@@ -15,7 +15,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Welcome from './pages/Welcome';
 import Demo from './pages/demo/Demo';
-import Welcome from './pages/Welcome';
+import Integrations from './pages/Integrations';
 
 // Components
 import Navbar from './components/Navbar';
@@ -46,7 +46,9 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Welcome />} />
                   <Route path="/demo" element={<Demo />} />
+                  <Route path="/integrations" element={<Integrations />} />
                   <Route path="/welcome" element={<Welcome />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/generator" element={<ContentGenerator />} />
                   <Route path="/analytics" element={<Analytics />} />
                   <Route path="/templates" element={<Templates />} />

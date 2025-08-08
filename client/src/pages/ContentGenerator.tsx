@@ -350,7 +350,9 @@ const ContentGenerator: React.FC = () => {
                 <Save className="h-4 w-4 mr-1" />
                 Save
               </button>
-              <button className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+              <button className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors" onClick={() => {
+                window.location.href = '/integrations';
+              }}>
                 <Share2 className="h-4 w-4 mr-1" />
                 Share
               </button>

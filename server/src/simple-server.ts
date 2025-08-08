@@ -226,6 +226,43 @@ app.post('/api/subscription/checkout', async (req, res) => {
   }
 });
 
+// ===== Social Integrations (Mock scaffolding) =====
+// List available providers and whether connected (mocked false)
+app.get('/api/integrations/providers', (_req, res) => {
+  const providers = [
+    { id: 'facebook', name: 'Facebook / Instagram (Meta)', connected: false },
+    { id: 'linkedin', name: 'LinkedIn', connected: false },
+    { id: 'twitter', name: 'X (Twitter)', connected: false },
+  ];
+  res.json({ providers });
+});
+
+// Begin OAuth flow (returns an auth URL placeholder for now)
+app.get('/api/integrations/connect/:provider', (req, res) => {
+  const provider = req.params['provider'];
+  const clientUrl = process.env['CLIENT_URL'] || 'http://localhost:5173';
+  // In production: compose real OAuth URL based on env & redirect_uri
+  const authUrl = `${clientUrl}/login?provider=${encodeURIComponent(provider)}`;
+  res.json({ provider, authUrl });
+});
+
+// OAuth callback (placeholder)
+app.get('/api/integrations/callback/:provider', (req, res) => {
+  const provider = req.params['provider'];
+  // In production: exchange code for access token and persist
+  res.json({ provider, status: 'connected' });
+});
+
+// Publish content to a provider (mock)
+app.post('/api/publish', (req, res) => {
+  const { provider, title, body } = req.body || {};
+  if (!provider || !body) {
+    return res.status(400).json({ error: 'provider and body are required' });
+  }
+  // In production: use stored tokens and provider SDKs/APIs to post
+  return res.json({ posted: true, provider, id: `post_${Date.now()}`, title, body });
+});
+
 app.get('/api/marketing', (_req, res) => {
   const payload = {
     heroTitle: 'AI Content that Grows Your Small Business',

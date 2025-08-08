@@ -17,7 +17,8 @@ const Sidebar: React.FC = () => {
   const location = useLocation();
 
   const navigation = [
-    { name: 'Dashboard', href: '/', icon: Home },
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'Content Generator', href: '/generator', icon: PenTool },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
     { name: 'Templates', href: '/templates', icon: FileText },
