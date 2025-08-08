@@ -19,3 +19,6 @@ logs/
 # Editor
 .vscode/
 .idea/
+
+# Next.js
+**/.next/**
