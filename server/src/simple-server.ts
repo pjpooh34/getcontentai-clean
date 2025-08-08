@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import aiService from './ai-service';
+import Stripe from 'stripe';
 // Database initialization is disabled for Railway minimal runtime
 // import { initializeDatabase } from './database';
 
@@ -193,6 +194,36 @@ app.get('/api/marketing', (_req, res) => {
     },
     cta: { primary: 'Try Free Demo', secondary: 'See Pricing' },
   });
+});
+
+// Subscription checkout (Stripe if configured, otherwise fallback)
+app.post('/api/subscription/checkout', async (req, res) => {
+  try {
+    const plan = (req.body?.plan as string) || 'CORE';
+    const clientUrl = process.env['CLIENT_URL'] || 'http://localhost:5173';
+    const stripeSecret = process.env['STRIPE_SECRET_KEY'];
+    const priceIdMap: Record<string, string | undefined> = {
+      DIY: process.env['STRIPE_DDIY_PRICE_ID'] || process.env['STRIPE_DIY_PRICE_ID'],
+      CORE: process.env['STRIPE_CORE_PRICE_ID'],
+      PRO: process.env['STRIPE_PRO_PRICE_ID'],
+    };
+
+    if (stripeSecret && priceIdMap[plan]) {
+      const stripe = new Stripe(stripeSecret, { apiVersion: '2024-06-20' });
+      const session = await stripe.checkout.sessions.create({
+        mode: 'subscription',
+        line_items: [{ price: priceIdMap[plan]!, quantity: 1 }],
+        success_url: `${clientUrl}/pricing?success=true`,
+        cancel_url: `${clientUrl}/pricing?canceled=true`,
+      });
+      return res.json({ url: session.url });
+    }
+
+    // Fallback: send to signup with plan param
+    return res.json({ url: `${clientUrl}/signup?plan=${encodeURIComponent(plan)}` });
+  } catch (e: any) {
+    return res.status(500).json({ error: e.message });
+  }
 });
 
 app.get('/api/marketing', (_req, res) => {

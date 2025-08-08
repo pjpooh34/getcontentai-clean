@@ -37,9 +37,22 @@ const Pricing: React.FC = () => {
   const [busy, setBusy] = useState<PlanKey | null>(null);
 
   const startCheckout = async (plan: PlanKey) => {
-    setBusy(plan);
-    // Stubbed for now
-    setTimeout(() => setBusy(null), 800);
+    try {
+      setBusy(plan);
+      const res = await fetch(`${(import.meta as any).env?.VITE_API_URL || ''}/api/subscription/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      });
+      const json = await res.json();
+      if (json?.url) {
+        window.location.href = json.url;
+      } else {
+        setBusy(null);
+      }
+    } catch (e) {
+      setBusy(null);
+    }
   };
 
   return (
