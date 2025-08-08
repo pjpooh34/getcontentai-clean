@@ -16,6 +16,7 @@ import Signup from './pages/Signup';
 import Welcome from './pages/Welcome';
 import Demo from './pages/demo/Demo';
 import Integrations from './pages/Integrations';
+import CalendarPage from './pages/Calendar';
 
 // Components
 import Navbar from './components/Navbar';
@@ -47,6 +48,7 @@ function App() {
                   <Route path="/" element={<Welcome />} />
                   <Route path="/demo" element={<Demo />} />
                   <Route path="/integrations" element={<Integrations />} />
+                  <Route path="/calendar" element={<CalendarPage />} />
                   <Route path="/welcome" element={<Welcome />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/generator" element={<ContentGenerator />} />

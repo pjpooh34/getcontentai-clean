@@ -22,6 +22,17 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// In-memory schedule store (replace with DB in production)
+type ScheduledPost = {
+  id: string;
+  title?: string;
+  body: string;
+  platform: string;
+  scheduledAt: string; // ISO string
+  status: 'scheduled' | 'posted' | 'canceled';
+};
+const scheduledPosts: ScheduledPost[] = [];
+
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ 
@@ -261,6 +272,36 @@ app.post('/api/publish', (req, res) => {
   }
   // In production: use stored tokens and provider SDKs/APIs to post
   return res.json({ posted: true, provider, id: `post_${Date.now()}`, title, body });
+});
+
+// ===== Basic Scheduling APIs =====
+app.get('/api/schedule', (_req, res) => {
+  res.json({ items: scheduledPosts });
+});
+
+app.post('/api/schedule', (req, res) => {
+  const { title, body, platform, scheduledAt } = req.body || {};
+  if (!body || !platform || !scheduledAt) {
+    return res.status(400).json({ error: 'body, platform, and scheduledAt are required' });
+  }
+  const item: ScheduledPost = {
+    id: `sched_${Date.now()}`,
+    title,
+    body,
+    platform,
+    scheduledAt,
+    status: 'scheduled',
+  };
+  scheduledPosts.push(item);
+  res.json({ saved: true, item });
+});
+
+app.delete('/api/schedule/:id', (req, res) => {
+  const { id } = req.params;
+  const idx = scheduledPosts.findIndex(s => s.id === id);
+  if (idx === -1) return res.status(404).json({ error: 'not found' });
+  const [removed] = scheduledPosts.splice(idx, 1);
+  res.json({ removed });
 });
 
 app.get('/api/marketing', (_req, res) => {

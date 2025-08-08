@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
     { name: 'Home', href: '/', icon: Home },
     { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'Content Generator', href: '/generator', icon: PenTool },
+    { name: 'Calendar', href: '/calendar', icon: PenTool },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
     { name: 'Templates', href: '/templates', icon: FileText },
     { name: 'Trends', href: '/trends', icon: TrendingUp },
